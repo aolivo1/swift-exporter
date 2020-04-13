@@ -188,6 +188,8 @@ func GrabNICMTU() {
 			continue
 		} else if strings.Contains(outputString[i], "lo") {
 			continue
+		} else if strings.Contains(outputString[i], "bonding_masters") {
+			continue
 		}
 
 		// grab the
