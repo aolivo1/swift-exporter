@@ -86,10 +86,9 @@ func ExposePerCPUUsage(ExposePerCPUUsageEnable bool) {
 			cpuStealTime := PerCPUUsageTime[i].Steal
 			cpuGuestTime := PerCPUUsageTime[i].Guest
 			cpuGuestNiceTime := PerCPUUsageTime[i].GuestNice
-			cpuStolenTime := PerCPUUsageTime[i].Stolen
 
 			//calculate the total time used based on all the parameters it acquired
-			totalTimeUsed := cpuUserTime + cpuSystemTime + cpuIdleTime + cpuNiceTime + cpuIOWaitTime + cpuIRQTime + cpuSoftIRQTime + cpuStealTime + cpuGuestTime + cpuGuestNiceTime + cpuStolenTime
+			totalTimeUsed := cpuUserTime + cpuSystemTime + cpuIdleTime + cpuNiceTime + cpuIOWaitTime + cpuIRQTime + cpuSoftIRQTime + cpuStealTime + cpuGuestTime + cpuGuestNiceTime 
 
 			//for each metrcis, do the percentage calculate.
 			usrValue := cpuUserTime / totalTimeUsed
@@ -102,7 +101,6 @@ func ExposePerCPUUsage(ExposePerCPUUsageEnable bool) {
 			stealValue := cpuStealTime / totalTimeUsed
 			guestValue := cpuGuestTime / totalTimeUsed
 			guestniceValue := cpuGuestNiceTime / totalTimeUsed
-			stolenValue := cpuStolenTime / totalTimeUsed
 
 			//expose the metrics out to prometheus
 			individualCPUStatValue.WithLabelValues(cpuName, "usr", hostFQDN, hostUUID).Set(usrValue)
@@ -115,7 +113,6 @@ func ExposePerCPUUsage(ExposePerCPUUsageEnable bool) {
 			individualCPUStatValue.WithLabelValues(cpuName, "steal", hostFQDN, hostUUID).Set(stealValue)
 			individualCPUStatValue.WithLabelValues(cpuName, "guest", hostFQDN, hostUUID).Set(guestValue)
 			individualCPUStatValue.WithLabelValues(cpuName, "guestnice", hostFQDN, hostUUID).Set(guestniceValue)
-			individualCPUStatValue.WithLabelValues(cpuName, "stolen", hostFQDN, hostUUID).Set(stolenValue)
 
 			//for each metrcis, do the percentage calculate.
 		}
