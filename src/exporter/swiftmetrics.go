@@ -713,15 +713,15 @@ func CheckSwiftService() {
 		out, err := cmd.CombinedOutput()
 		if err != nil {
 			fmt.Println("Cannot find process")
-			fmt.Println("Process Not Running: ", swiftServices[j])
+			fmt.Println("Process Not Running: ", swiftSubServices[j])
 			fmt.Println("Service Status: ", string(out))
-			swiftServiceStatus.WithLabelValues(nodeHostname, nodeUUID, swiftServices[j]).Set(float64(0))
+			swiftSubServiceStatus.WithLabelValues(nodeHostname, nodeUUID, swiftSubServices[j]).Set(float64(0))
 
 		} else {
 			if strings.TrimRight(string(out), "\n") == "active" {
-				fmt.Println("Now Checking: ", swiftServices[j])
+				fmt.Println("Now Checking: ", swiftSubServices[j])
 				fmt.Println("Service Status: ", string(out))
-				swiftServiceStatus.WithLabelValues(nodeHostname, nodeUUID, swiftServices[j]).Set(float64(1))
+				swiftSubServiceStatus.WithLabelValues(nodeHostname, nodeUUID, swiftSubServices[j]).Set(float64(1))
 			}
 		}
 	}
